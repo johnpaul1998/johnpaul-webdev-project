@@ -3,8 +3,9 @@
     <v-form @submit.prevent="addFood">
       <v-text-field v-model="itemData.name" label="Food" required></v-text-field>
       <v-text-field v-model="itemData.calories" label="Calories" required></v-text-field>
-      <v-btn depressed color="success" class="my-4" type="submit">
-        {{ editingIndex === null ? 'Add' : 'Update' }}
+      <v-btn depressed color="#757575" class="my-4 white--text" type="submit">
+        <v-icon aria-hidden="false">mdi-plus</v-icon>
+        {{ editingIndex === null ? 'Add Food' : 'Update' }}
       </v-btn>
       <v-btn v-if="editingIndex !== null" @click="cancelEdit">Cancel</v-btn>
     </v-form>
@@ -22,8 +23,15 @@
           <td>{{ item.name }}</td>
           <td>{{ item.calories }}</td>
           <td>
-            <v-btn depressed color="primary" @click="editFood(index)">Edit</v-btn>
-            <v-btn depressed color="error" @click="deleteFood(index)">Delete</v-btn>
+            <v-btn depressed color="success" @click="editFood(index)">
+              <v-icon aria-hidden="false">
+                mdi-pencil
+              </v-icon>
+
+              Edit</v-btn>
+            <v-btn depressed color="error" @click="deleteFood(index)">
+              <v-icon aria-hidden="false">mdi-delete-outline</v-icon>
+              Delete</v-btn>
           </td>
         </tr>
       </tbody>
@@ -33,13 +41,14 @@
 
 <script>
 export default {
+  
   data() {
     return {
       desserts: [
         { name: "Frozen Yogurt", calories: 159 },
         { name: "Ice cream sandwich", calories: 237 },
       ],
-      itemData: { name: "", calories: 0 },
+      itemData: { name: "", calories: null },
       editingIndex: null,
     };
   },
@@ -63,7 +72,7 @@ export default {
       this.itemData = { ...this.desserts[index] }; // Pre-fill the form with item data
     },
     resetForm() {
-      this.itemData = { name: "", calories: 0 }; // Reset the form fields
+      this.itemData = { name: "", calories: null }; // Reset the form fields
       this.editingIndex = null;
     },
     cancelEdit() {
@@ -71,4 +80,5 @@ export default {
     },
   },
 };
+
 </script>
